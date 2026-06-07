@@ -5,8 +5,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Placeholder: requirements will come from mounted volume
-RUN echo "# Backend will install its own dependencies at runtime"
+# Install base backend dependencies
+COPY backend/requirements.txt /app/requirements-base.txt
+RUN pip install --no-cache-dir -r /app/requirements-base.txt || true
 
 RUN git config --global user.name "AI SDLC" && \
     git config --global user.email "ai@sdlc.local"
